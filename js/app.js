@@ -53,8 +53,12 @@ function renderData(data) {
 					.attr("data-yvalue", (d) => new Date(DATE + d.Time))	// Has to be formatted like the time above
 					.attr("cx", (d) => xScale(d.Year) )
 					.attr("cy", (d) => yScale(new Date(DATE + d.Time)) )		
-					.attr("r", 5);
+					.attr("r", 7);
 
+	/* Give the dots different style depending on whether the particular data was involved in doping or not */
+	dots.attr("class", (d) => {
+		return d.Doping ? "dope" : "no-dope";
+	});
 	/* The group elements that contain the axes returned from the function that 
 	rendered the axes and used subsequently to render the x and y axes labels */
 	const { xg, yg } = renderAxis(svg, xScale, yScale, { height, margin });
@@ -140,7 +144,7 @@ function renderTooltip(dots) {
 					   .style("visibility", "hidden");
 	
 	// Show the tooltip with the data on mouse over
-	dots.on("mouseover", function(event, d) {
+	dots.on("mouseover", function(event, d) {	
 		let tooltipDisplay = getDisplay(d);		// Get the text that will be displayed
 												// formatted with Html
 

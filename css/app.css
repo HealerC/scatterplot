@@ -1,3 +1,10 @@
+:root {
+	--dope: #137B80;
+	--no-dope: #E6842A;
+	--dope-trans: rgba(19, 123, 128, 0.8);
+	--no-dope-trans: rgba(230, 132, 42, 0.8);
+}
+
 /* The container makes it possible for the chart to be within the viewport width */
 #container {
 	width: 100vw;
@@ -21,4 +28,15 @@ div#tooltip {
 }
 text {
 	fill: black;
+}
+circle {
+	/* stroke: #635F5D; */
+	stroke: white;
+	stroke-width: 1;
+}
+circle.dope {
+	fill: var(--dope-trans);
+}
+circle.no-dope {
+	fill: var(--no-dope-trans);
 }
