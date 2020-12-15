@@ -16,7 +16,9 @@ div#tooltip {
     text-align: center;
     padding: .5rem;
     background: hsla(210, 3%, 75%, 0.5);
-    color: var(--dark-blue);
     pointer-events: none;
     font-size: 1em;
+}
+text {
+	fill: black;
 }
