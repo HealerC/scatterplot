@@ -161,16 +161,17 @@ function renderTooltip(dots) {
 	
 	// Show the tooltip with the data on mouse over
 	dots.on("mouseover", function(event, d) {	
-		let tooltipDisplay = getDisplay(d);		// Get the text that will be displayed
-												// formatted with Html
-
 		tooltip.style("visibility", "visible")
 		       .html(getDisplay(d))
 		       .attr("data-date", null)			// required in FCC tests
 		       // Displacement on the x axis should be some distance from the mouse
-		       .style("left", (event.pageX+30) + "px")
+		       .style("left", (event.pageX) + "px")
 		       // Displacement on the y axis should be constant (60%) of the screen height
-	      	   .style("top", (0.6*screen.availHeight) + "px"); 
+	      	   .style("top", (event.pageY) + "px")
+	      	   .style("background-color", () => {
+	      	   		return d.Doping ? "rgba(188, 223, 228, 0.8)" : 
+	      	   						  "rgba(250, 226, 189, 0.8)";
+	      	   }); 
 	})
 	.on("mouseout", () => {
 		// Hide when the mouse moves out of the dots
@@ -184,7 +185,9 @@ function renderTooltip(dots) {
  	* @return {string} output a string with the correct format in html
 	*/
 	function getDisplay(d) {
-		let output = JSON.stringify(d);
+		let output = `${d.Name}: ${d.Nationality}<br />
+					  Year: ${d.Year}, Time: ${d.Time}
+					  <p><a href="${d.URL}" target="_blank">${d.Doping}</a></p>`;
 		return output;
 	}
 }

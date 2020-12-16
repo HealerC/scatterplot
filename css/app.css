@@ -20,10 +20,9 @@
 
 div#tooltip {
 	position: absolute;			/* So the tooltip can be positioned anywhere in the page*/
-    text-align: center;
     padding: .5rem;
     background: hsla(210, 3%, 75%, 0.5);
-    pointer-events: none;
+    border-radius: 0.5em;
     font-size: 1em;
 }
 div#line-tooltip {
