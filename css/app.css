@@ -26,6 +26,15 @@ div#tooltip {
     pointer-events: none;
     font-size: 1em;
 }
+div#line-tooltip {
+	position: absolute;			/* So the tooltip can be positioned anywhere in the page*/
+    text-align: center;
+    padding: .5rem;
+    background-color: pink;
+    pointer-events: none;
+    font-size: 1em;
+    border-radius: 0.5em;
+}
 text {
 	fill: black;
 }
@@ -42,7 +51,9 @@ circle.no-dope {
 }
 polyline.dope {
 	stroke: var(--dope-trans);
+	stroke-width: 2;
 }
 polyline.no-dope {
-	stroke: var(--no-dope-trans)	
+	stroke: var(--no-dope-trans);
+	stroke-width: 2;	
 }

@@ -79,7 +79,8 @@ function renderData(data) {
 	renderAxisLabel(xg, yg, { width, height });		// The x and y axes labels
 	
 	renderTooltip(dots);				// The tooltip that shows on mouseover the dots
-	drawLineRelationships(svg, datasetFreq);
+	let line = drawLineRelationships(svg, datasetFreq);
+	renderLineTooltip(line);
 }
 
 /**
@@ -188,16 +189,37 @@ function renderTooltip(dots) {
 	}
 }
 function drawLineRelationships(svg, data) {
-	svg.insert("g", ":first-child")
-	   .selectAll("polyline")
-	   .data(data)
-	   .enter()
-	   .append("polyline")
-	   .attr("points", (d) => {
-	   		return d.coords.join(" ");;	
-	   })
-	   .attr("class", (d) => {
-	   		return d.isDoping ? "dope" : "no-dope"
-	   })
-	   .attr("fill", "none");
+	const line = svg.insert("g", ":first-child")
+	   				.selectAll("polyline")
+				    .data(data)
+				    .enter()
+				    .append("polyline")
+				    .attr("points", (d) => {
+				   		return d.coords.join(" ");;	
+				     })
+				    .attr("class", (d) => {
+				   		return d.isDoping ? "dope" : "no-dope"
+				     })
+				    .attr("fill", "none");
+	return line;
+}
+function renderLineTooltip(line) {
+	const lineTooltip = d3.select("body")
+					      .append("div")
+					      .attr("id", "line-tooltip")
+					      .style("visibility", "hidden");
+	
+	// Show the tooltip with the data on mouse over
+	line.on("mouseover", function(event, d) {
+		console.log(d.name);	
+		lineTooltip.style("visibility", "visible")
+		       .html(d.name)
+		       .style("left", (event.pageX) + "px")
+		       // Displacement on the y axis should be constant (60%) of the screen height
+	      	   .style("top", (event.pageY) + "px"); 
+	})
+	.on("mouseout", () => {
+		// Hide when the mouse moves out of the dots
+		lineTooltip.style("visibility", "hidden");
+	})
 }
