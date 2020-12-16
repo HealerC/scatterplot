@@ -44,6 +44,8 @@ function renderData(data) {
 					 .domain([minTime, maxTime])	// The min and max extent of time
 					 .range([margin.top, height - margin.bottom]);	// The lower time should be higher in the graph
 	const DATE = "2000-05-27T00:"		// Constant string format to append the time to
+	
+	let datasetFreq = [];
 	const dots = svg.selectAll("circle")
 	   				.data(data)
 					.enter()
@@ -53,8 +55,20 @@ function renderData(data) {
 					.attr("data-yvalue", (d) => new Date(DATE + d.Time))	// Has to be formatted like the time above
 					.attr("cx", (d) => xScale(d.Year) )
 					.attr("cy", (d) => yScale(new Date(DATE + d.Time)) )		
-					.attr("r", 7);
-
+					.attr("r", function(d) {
+						let name = d.Name;
+						let newCoords = d3.select(this).attr("cx") + "," + d3.select(this).attr("cy");
+						let doping = d.Doping ? true : false;
+						let index = datasetFreq.findIndex((value) => value.name === name);
+						if (index >= 0) {
+							datasetFreq[index].coords.push(newCoords);
+						} else {
+							datasetFreq.push({name: name, coords: [newCoords], isDoping: doping});
+						}
+						return 7;
+					});
+	datasetFreq = datasetFreq.filter((value) => value.coords.length > 1)
+	console.log(datasetFreq);
 	/* Give the dots different style depending on whether the particular data was involved in doping or not */
 	dots.attr("class", (d) => {
 		return d.Doping ? "dope" : "no-dope";
@@ -65,6 +79,7 @@ function renderData(data) {
 	renderAxisLabel(xg, yg, { width, height });		// The x and y axes labels
 	
 	renderTooltip(dots);				// The tooltip that shows on mouseover the dots
+	drawLineRelationships(svg, datasetFreq);
 }
 
 /**
@@ -171,4 +186,18 @@ function renderTooltip(dots) {
 		let output = JSON.stringify(d);
 		return output;
 	}
+}
+function drawLineRelationships(svg, data) {
+	svg.insert("g", ":first-child")
+	   .selectAll("polyline")
+	   .data(data)
+	   .enter()
+	   .append("polyline")
+	   .attr("points", (d) => {
+	   		return d.coords.join(" ");;	
+	   })
+	   .attr("class", (d) => {
+	   		return d.isDoping ? "dope" : "no-dope"
+	   })
+	   .attr("fill", "none");
 }

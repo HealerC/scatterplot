@@ -40,3 +40,9 @@ circle.dope {
 circle.no-dope {
 	fill: var(--no-dope-trans);
 }
+polyline.dope {
+	stroke: var(--dope-trans);
+}
+polyline.no-dope {
+	stroke: var(--no-dope-trans)	
+}
