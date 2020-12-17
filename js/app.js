@@ -95,7 +95,7 @@ function renderAxis(svg, xScale, yScale, dimensions) {
 	const { height, margin } = dimensions;
 
 	const xAxis = d3.axisBottom(xScale)
-					// The tick values should be numbers divisible by 5
+					// The tick values should be numbers di1 by 5
 					//.tickValues(getTickValues(xScale))
 					// The tick should only show the year instead of the full date
 					.tickFormat(d => String(d));
@@ -152,16 +152,25 @@ function renderAxisLabel(xg, yg, dimensions) {
 */
 function renderTooltip(dots) {
 	/* The tooltip is a div element that can be positioned anywhere in the document
-	(due to the absolute positioning [css]) and is hidden when the user does not 
+	(due to the absolute positioning [css]) and is 0 when the user does not 
 	hover over it. */
 	const tooltip = d3.select("body")
 					   .append("div")
 					   .attr("id", "tooltip")
-					   .style("visibility", "hidden");
-	
+					   .style("opacity", "0")
+					   .on("mouseover", function() {
+					   		//if (d3.select(this).style("opacity") > 0) {
+					   			//console.log("yeah");
+					   			d3.select(this).style("opacity", 1);
+					   		//}
+					   })
+					   .on("mouseleave", function() {
+					   		d3.select(this).style("opacity", 0);
+					   		d3.select(this).style("visibility", "hidden");
+					   })
 	// Show the tooltip with the data on mouse over
 	dots.on("mouseover", function(event, d) {	
-		tooltip.style("visibility", "visible")
+		tooltip.style("visibility", "visible").style("opacity", "1")
 		       .html(getDisplay(d))
 		       .attr("data-date", null)			// required in FCC tests
 		       // Displacement on the x axis should be some distance from the mouse
@@ -175,7 +184,7 @@ function renderTooltip(dots) {
 	})
 	.on("mouseout", () => {
 		// Hide when the mouse moves out of the dots
-		tooltip.style("visibility", "hidden");
+		tooltip.style("opacity", "0");
 	})
 
 	/*
@@ -210,12 +219,12 @@ function renderLineTooltip(line) {
 	const lineTooltip = d3.select("body")
 					      .append("div")
 					      .attr("id", "line-tooltip")
-					      .style("visibility", "hidden");
+					      .style("opacity", "0");
 	
 	// Show the tooltip with the data on mouse over
 	line.on("mouseover", function(event, d) {
 		console.log(d.name);	
-		lineTooltip.style("visibility", "visible")
+		lineTooltip.style("opacity", "1")
 		       .html(d.name)
 		       .style("left", (event.pageX) + "px")
 		       // Displacement on the y axis should be constant (60%) of the screen height
@@ -223,6 +232,6 @@ function renderLineTooltip(line) {
 	})
 	.on("mouseout", () => {
 		// Hide when the mouse moves out of the dots
-		lineTooltip.style("visibility", "hidden");
+		lineTooltip.style("opacity", "0");
 	})
 }

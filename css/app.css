@@ -24,6 +24,7 @@ div#tooltip {
     background: hsla(210, 3%, 75%, 0.5);
     border-radius: 0.5em;
     font-size: 1em;
+    transition: opacity 0.1s 0s;
 }
 div#line-tooltip {
 	position: absolute;			/* So the tooltip can be positioned anywhere in the page*/
