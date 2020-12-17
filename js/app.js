@@ -162,9 +162,12 @@ function renderTooltip(dots) {
 					   		//if (d3.select(this).style("opacity") > 0) {
 					   			//console.log("yeah");
 					   			d3.select(this).style("opacity", 1);
+					   			d3.select(this).style("box-shadow", "0 4px 8px 0 "
+					   			  + "rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)");
 					   		//}
 					   })
 					   .on("mouseleave", function() {
+					   		d3.select(this).style("box-shadow", "none")
 					   		d3.select(this).style("opacity", 0);
 					   		d3.select(this).style("visibility", "hidden");
 					   })
