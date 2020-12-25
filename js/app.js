@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", function() {
 * This method renders the scatterplot
 */
 function renderData(data) {
+	const dopeColor = "#137B80";
+	const noDopeColor = "#E6842A";
 	const svg = d3.select("svg");
 
 	let width = svg.style("width");		// The width was set using CSS and is therefore
@@ -79,8 +81,20 @@ function renderData(data) {
 	renderAxisLabel(xg, yg, { width, height });		// The x and y axes labels
 	
 	renderTooltip(dots);				// The tooltip that shows on mouseover the dots
-	let line = drawLineRelationships(svg, datasetFreq);
-	renderLineTooltip(line);
+	const line = drawLineRelationships(svg, datasetFreq);
+	console.log(line);
+	const legend = renderLegend( svg, { text: ["Doping", "Allegations"], color: dopeColor}, 
+				  { text: ["No Doping", "Allegations"], color: noDopeColor} );
+
+	let lineIsShowing = false;
+	legend.on("click", () => {
+		if (lineIsShowing) {
+			line.style("visibility", "hidden");
+		} else {
+			line.style("visibility", "visible");
+		}
+		lineIsShowing = !lineIsShowing;
+	})
 }
 
 /**
@@ -215,8 +229,9 @@ function drawLineRelationships(svg, data) {
 				    .attr("class", (d) => {
 				   		return d.isDoping ? "dope" : "no-dope"
 				     })
-				    .attr("fill", "none");
-	return line;
+				    .attr("fill", "none")
+					.style("visibility", "hidden");
+	return renderLineTooltip(line);
 }
 function renderLineTooltip(line) {
 	const lineTooltip = d3.select("body")
@@ -237,4 +252,79 @@ function renderLineTooltip(line) {
 		// Hide when the mouse moves out of the dots
 		lineTooltip.style("opacity", "0");
 	})
+
+	return line;
+}
+function renderLegend(svg, class1, class2) {
+	const svgWidth = svg.style("width"), svgHeight = svg.style("height");
+	
+	const legendWidth = 0.13 * +svgWidth.substring(0, svgWidth.indexOf("px"));
+	const legendHeight = 0.25 * +svgHeight.substring(0, svgHeight.indexOf("px"));
+	const margin = 8;
+	const legendPosition = { 
+							 x: +svgWidth.substring(0, svgWidth.indexOf("px"))-(margin+legendWidth), 
+							 y: (+svgHeight.substring(0, svgHeight.indexOf("px"))-legendHeight)/2 
+						   };
+						   console.log(legendPosition);
+
+	const classBoxSize = 0.2 * legendWidth;
+	const textAllowance = 13;
+
+	const legendGroup = svg.append("g").attr("transform", `translate(${legendPosition.x}, ${legendPosition.y})`);
+	const legendRect = legendGroup.append("rect")
+	   						   		  .attr("x", 0)
+	   						   		  .attr("y", 0)
+	   						   		  .attr("width", legendWidth)
+	   						   		  .attr("height", legendHeight)
+	   						   		  .style("fill", "pink")
+	   						   		  .style("stroke", "black")
+	   						   		  .style("stroke-width", 2);
+
+	const class1Group = legendGroup.append("g").attr("transform", "translate(10, 10)");
+	const class2Group = legendGroup.append("g").attr("transform", `translate(10, ${legendHeight/2})`);
+	
+	const text1Group = class1Group.append("text")
+								 .attr("transform", `translate(${classBoxSize+margin}, ${textAllowance})`)
+								 .selectAll("tspan")
+								 .data(class1.text)
+								 .enter()
+								 .append("tspan")
+								 .attr("x", 0)
+								 .attr("y", (d, i) => {
+								 	return i * (textAllowance+margin/2);
+								 })
+								 .text((d) => d);
+
+
+
+	class1Group.append("rect")
+	   		   .attr("x", 0)
+	   		   .attr("y", 0)
+	   		   .attr("width", classBoxSize)
+	   		   .attr("height", classBoxSize)
+	   		   .attr("fill", class1.color)
+	   		   .attr("stroke", "white")
+	
+	const text2Group = class2Group.append("text")
+								 .attr("transform", `translate(${classBoxSize+margin}, ${textAllowance})`)
+								 .selectAll("tspan")
+								 .data(class2.text)
+								 .enter()
+								 .append("tspan")
+								 .attr("x", 0)
+								 .attr("y", (d, i) => {
+								 	return i * (textAllowance+margin/2);
+								 })
+								 .text((d) => d);
+
+
+
+	class2Group.append("rect")
+	   		   .attr("x", 0)
+	   		   .attr("y", 0)
+	   		   .attr("width", classBoxSize)
+	   		   .attr("height", classBoxSize)
+	   		   .attr("fill", class2.color)
+	   		   .attr("stroke", "white")
+	return legendGroup;
 }
