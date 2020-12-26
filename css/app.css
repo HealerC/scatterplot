@@ -94,3 +94,8 @@ header i {
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 }
+
+/* Axis and tick lines */
+.domain, .tick line {
+	stroke: gray;
+} 
