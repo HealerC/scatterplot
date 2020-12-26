@@ -90,8 +90,10 @@ function renderData(data) {
 	legend.on("click", () => {
 		if (lineIsShowing) {
 			line.style("visibility", "hidden");
+			legend.node().classList.remove("line-on");
 		} else {
 			line.style("visibility", "visible");
+			legend.node().classList.add("line-on");
 		}
 		lineIsShowing = !lineIsShowing;
 	})
@@ -270,15 +272,14 @@ function renderLegend(svg, class1, class2) {
 	const classBoxSize = 0.2 * legendWidth;
 	const textAllowance = 13;
 
-	const legendGroup = svg.append("g").attr("transform", `translate(${legendPosition.x}, ${legendPosition.y})`);
+	const legendGroup = svg.append("g").attr("transform", `translate(${legendPosition.x}, ${legendPosition.y})`)
+						   .attr("class", "legend");
 	const legendRect = legendGroup.append("rect")
 	   						   		  .attr("x", 0)
 	   						   		  .attr("y", 0)
 	   						   		  .attr("width", legendWidth)
 	   						   		  .attr("height", legendHeight)
-	   						   		  .style("fill", "pink")
-	   						   		  .style("stroke", "black")
-	   						   		  .style("stroke-width", 2);
+	   						   		  .attr("class", "legend-rect")
 
 	const class1Group = legendGroup.append("g").attr("transform", "translate(10, 10)");
 	const class2Group = legendGroup.append("g").attr("transform", `translate(10, ${legendHeight/2})`);
