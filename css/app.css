@@ -1,8 +1,14 @@
+* {
+	box-sizing: border-box;
+}
 :root {
 	--dope: #137B80;
 	--no-dope: #E6842A;
 	--dope-trans: rgba(19, 123, 128, 0.8);
 	--no-dope-trans: rgba(230, 132, 42, 0.8);
+	
+	--lightest-gray: #F5F3F2;
+	--light-gray: #EFECEA;
 }
 
 /* The container makes it possible for the chart to be within the viewport width */
@@ -57,4 +63,34 @@ polyline.dope {
 polyline.no-dope {
 	stroke: var(--no-dope-trans);
 	stroke-width: 2;	
+}
+
+body {
+	background-color: var(--light-gray);
+}
+/* Header */
+header {
+	background-color: var(--lightest-gray);
+	border: 1px solid white;
+	display: flex;
+	justify-content: space-between;
+}
+header .text-wrapper {
+	margin-left: 2em;
+}
+header .text-wrapper h1 {
+	margin-bottom: 0;
+}
+header .text-wrapper p {
+	margin-top: 0;
+}
+header i {
+	font-size: 4em;
+	margin-right: 1em;
+	align-self: center;
+
+	/* Gradient text */
+	background: linear-gradient(var(--dope) , var(--no-dope));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
