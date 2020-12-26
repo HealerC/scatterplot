@@ -99,3 +99,9 @@ header i {
 .domain, .tick line {
 	stroke: gray;
 } 
+
+/* Tick text */
+.tick text {
+	font-size: 1.4em;
+	font-weight: bold;
+}
