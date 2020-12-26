@@ -105,3 +105,8 @@ header i {
 	font-size: 1.4em;
 	font-weight: bold;
 }
+
+/* Label of the scatter plot */
+text.label {
+	font-size: larger;
+}

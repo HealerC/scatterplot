@@ -151,7 +151,7 @@ function renderAxisLabel(xg, yg, dimensions) {
 
 	yg.append("text")
 	  .attr("class", "label")
-	  .text("Time (seconds)")
+	  .text("Time (minutes)")
 	  // The parameters were just chosen to fit in. I honestly have not mastered
 	  // rotation in svg but it just works
 	  .attr("x", -(height-350)/2)
