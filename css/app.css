@@ -98,7 +98,21 @@ header i {
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 }
-
+header h1 {
+	font-family: "Franklin Gothic Book", sans-serif;
+	font-weight: normal;
+	color: #635F5D;
+}
+header h1 span {
+	font-family: "Franklin Gothic Demi", sans-serif;
+	font-weight: bold;
+}
+header p {
+	font-size: larger;
+	font-style: italic;
+	color: #8E8883;
+	font-family: "Georgia", serif;
+}
 /* Axis and tick lines */
 .domain, .tick line {
 	stroke: gray;
