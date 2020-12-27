@@ -185,6 +185,7 @@ footer {
 	bottom: 0;
 	width: 100%;	
 	padding: 0;
+	font-family: Georgia, serif;
 }
 #about-me, #hint {
 	display: inline-block;
@@ -212,4 +213,7 @@ footer {
 #about-me a:active {
 	letter-spacing: initial;
 	color: var(--no-dope);
+}
+footer strong {
+	color: #635F5D;
 }
