@@ -149,7 +149,7 @@ function renderAxisLabel(xg, yg, dimensions) {
 	  // The x axis label should be at the centered horizontally and 
 	  // should go under the axis
 	  .attr("x", width/2)
-	  .attr("y", 45);
+	  .attr("y", 40);
 
 	yg.append("text")
 	  .attr("class", "label")

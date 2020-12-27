@@ -9,8 +9,12 @@
 	
 	--lightest-gray: #F5F3F2;
 	--light-gray: #EFECEA;
+	--dark-gray: #E5E2E0;
+	--footer-border: #CDCDC9;
 }
-
+body {
+	margin: 0;
+}
 /* The container makes it possible for the chart to be within the viewport width */
 #container {
 	width: 100vw;
@@ -155,4 +159,43 @@ text.label {
 
 	/* Small space between the text and content */
 	padding-left: 5px;
+}
+
+/* The footer of the document */
+footer {
+	display: flex;
+	justify-content: space-between;
+	background-color: var(--dark-gray);
+	border: 2px dashed var(--footer-border);
+	position: fixed;
+	bottom: 0;
+	width: 100%;	
+	padding: 0;
+}
+#about-me, #hint {
+	display: inline-block;
+	line-height: 0;
+}
+#about-me {
+	margin-left: 2em;
+	font-size: larger;
+}
+#hint {
+	margin-right: 2em;
+}
+#about-me a:link, #about-me a:visited {
+	text-decoration: none;
+	color: var(--dope);
+	font-style: italic;
+	transition-property: letter-spacing, color;
+	transition-duration: 0.5s, 1s;
+	transition-delay: 0s, 0s;
+}
+#about-me a:hover {
+	letter-spacing: 1px;
+	color: var(--no-dope);
+}
+#about-me a:active {
+	letter-spacing: initial;
+	color: var(--no-dope);
 }
