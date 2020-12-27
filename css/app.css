@@ -123,3 +123,36 @@ text.label {
 .legend text {
 	user-select: none;
 }
+
+/* Style the dot tooltip */
+#tooltip a:link, #tooltip a:visited  {
+	color: navy;
+	text-decoration: none;
+}
+#tooltip a:hover, #tooltip a:active  {
+	color: navy;
+	text-decoration: underline;
+}
+
+#tooltip .more-info::after {
+	/* Base styling */
+	-moz-osx-font-smoothing: grayscale;
+  	-webkit-font-smoothing: antialiased;
+	display: inline-block; 
+	font-style: normal;
+	font-variant: normal;
+	text-rendering: auto;
+	line-height: 1;
+
+	/* Right font-family/font-face */
+	font-family: "Font Awesome 5 Free";
+
+	/* Right weight */
+	font-weight: 900;
+
+	/* Right unicode value */
+	content: "\f35d";
+
+	/* Small space between the text and content */
+	padding-left: 5px;
+}

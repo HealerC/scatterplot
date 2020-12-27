@@ -213,9 +213,16 @@ function renderTooltip(dots) {
  	* @return {string} output a string with the correct format in html
 	*/
 	function getDisplay(d) {
-		let output = `${d.Name}: ${d.Nationality}<br />
+		let output = "";
+		if (d.URL === "") {
+			output = `${d.Name}: ${d.Nationality}<br />
 					  Year: ${d.Year}, Time: ${d.Time}
-					  <p><a href="${d.URL}" target="_blank">${d.Doping}</a></p>`;
+					  <p></p>`;
+		} else {
+			output = `${d.Name}: ${d.Nationality}<br />
+					  Year: ${d.Year}, Time: ${d.Time}
+					  <p><a href="${d.URL}" target="_blank" class="more-info">${d.Doping}</a></p>`;
+		}
 		return output;
 	}
 }
