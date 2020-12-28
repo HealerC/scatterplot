@@ -52,7 +52,6 @@ function renderData(data) {
 	   				.data(data)
 					.enter()
 					.append("circle")
-					.attr("class", "dot")
 					.attr("data-xvalue", (d) => d.Year)
 					.attr("data-yvalue", (d) => new Date(DATE + d.Time))	// Has to be formatted like the time above
 					.attr("cx", (d) => xScale(d.Year) )
@@ -73,7 +72,7 @@ function renderData(data) {
 	console.log(datasetFreq);
 	/* Give the dots different style depending on whether the particular data was involved in doping or not */
 	dots.attr("class", (d) => {
-		return d.Doping ? "dope" : "no-dope";
+		return d.Doping ? "dot dope" : "dot no-dope";
 	});
 	/* The group elements that contain the axes returned from the function that 
 	rendered the axes and used subsequently to render the x and y axes labels */
