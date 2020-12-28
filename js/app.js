@@ -189,7 +189,7 @@ function renderTooltip(dots) {
 					   })
 	// Show the tooltip with the data on mouse over
 	dots.on("mouseover", function(event, d) {	
-		tooltip.style("visibility", "visible").style("opacity", "1")
+		tooltip.style("visibility", "visible").style("opacity", "1").attr("data-year", d.Year)
 		       .html(getDisplay(d))
 		       .attr("data-date", null)			// required in FCC tests
 		       // Displacement on the x axis should be some distance from the mouse
@@ -280,7 +280,7 @@ function renderLegend(svg, class1, class2) {
 	const textAllowance = 13;
 
 	const legendGroup = svg.append("g").attr("transform", `translate(${legendPosition.x}, ${legendPosition.y})`)
-						   .attr("class", "legend");
+						   .attr("class", "legend").attr("id", "legend");
 	const legendRect = legendGroup.append("rect")
 	   						   		  .attr("x", 0)
 	   						   		  .attr("y", 0)

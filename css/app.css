@@ -181,10 +181,6 @@ footer {
 	justify-content: space-between;
 	background-color: var(--dark-gray);
 	border: 2px dashed var(--footer-border);
-	position: fixed;
-	bottom: 0;
-	width: 100%;	
-	padding: 0;
 	font-family: Georgia, serif;
 }
 #about-me, #hint {
@@ -216,4 +212,27 @@ footer {
 }
 footer strong {
 	color: #635F5D;
+}
+
+/** MEDIA QUERIES **/
+@media (max-width: 720px) {
+	header .fab {
+		display: none;
+	}
+	footer {
+		flex-direction: column;
+	}
+	#about-me, #hint {
+		line-height: initial;
+		text-align: center;
+		margin: 0.5em;
+	}
+	#hint {
+		order: 1;
+		margin-right: 0;
+	}
+	#about-me {
+		order: 2;
+		margin-left: 0;
+	}
 }
