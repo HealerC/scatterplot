@@ -2,25 +2,31 @@
 	box-sizing: border-box;
 }
 :root {
+	/* The colors for the dope dots - solid and transparent */
 	--dope: #137B80;
 	--no-dope: #E6842A;
 	--dope-trans: rgba(19, 123, 128, 0.8);
 	--no-dope-trans: rgba(230, 132, 42, 0.8);
 	
+	/* The different species of gray color used in the document. */
 	--lightest-gray: #F5F3F2;
 	--light-gray: #EFECEA;
 	--dark-gray: #E5E2E0;
 	--footer-border: #CDCDC9;
 }
 body {
-	margin: 0;
+	margin: 0;	/* So that the header can adhere tightly to the left of the browser */
+	background-color: var(--light-gray);
 }
-/* The container makes it possible for the chart to be within the viewport width */
+
+/* The container's width makes it possible for the chart to be viewed or scrolled
+within the viewport width */
 #container {
 	width: 100vw;
 	overflow: auto;
 }
 
+/* The width and height of the scatterplot's svg. The program gets it from here */
 #scatterplot {
 	width: 1000px;
 	height: 80vh;
@@ -28,17 +34,18 @@ body {
 	margin: auto;
 }
 
+/* Tooltip that appears when the mouse is over the dots */
 div#tooltip {
-	position: absolute;			/* So the tooltip can be positioned anywhere in the page*/
+	position: absolute;			/* Absolute to the body so the tooltip 
+								can be positioned anywhere in the page */
     padding: .5rem;
-    background: hsla(210, 3%, 75%, 0.5);
     border-radius: 0.5em;
     font-size: 1em;
     transition: opacity 0.1s 0s;
     transition: box-shadow 0.5s 0s;
 }
 div#line-tooltip {
-	position: absolute;			/* So the tooltip can be positioned anywhere in the page*/
+	position: absolute;
     text-align: center;
     padding: .5rem;
     background-color: white;
@@ -54,6 +61,8 @@ circle {
 	stroke: white;
 	stroke-width: 1;
 }
+/* Circles and Polylines that represent cyclists that doped or did not dope 
+should have different colors */
 circle.dope {
 	fill: var(--dope-trans);
 }
@@ -69,9 +78,6 @@ polyline.no-dope {
 	stroke-width: 2;	
 }
 
-body {
-	background-color: var(--light-gray);
-}
 /* Header */
 header {
 	background-color: var(--lightest-gray);
@@ -84,35 +90,34 @@ header .text-wrapper {
 }
 header .text-wrapper h1 {
 	margin-bottom: 0;
-}
-header .text-wrapper p {
-	margin-top: 0;
-}
-header i {
-	font-size: 4em;
-	margin-right: 1em;
-	align-self: center;
-
-	/* Gradient text */
-	background: linear-gradient(var(--dope) , var(--no-dope));
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-}
-header h1 {
+	
 	font-family: "Franklin Gothic Book", sans-serif;
 	font-weight: normal;
 	color: #635F5D;
 }
-header h1 span {
+header .text-wrapper span {
 	font-family: "Franklin Gothic Demi", sans-serif;
 	font-weight: bold;
 }
-header p {
+header .text-wrapper p {
+	margin-top: 0;
+
+	font-family: "Georgia", serif;
 	font-size: larger;
 	font-style: italic;
 	color: #8E8883;
-	font-family: "Georgia", serif;
 }
+header i {
+	font-size: 4em;			/* Freecodecamp's logo should be big */
+	margin-right: 1em;
+	align-self: center;
+
+	/* Gradient text to Freecodecamp's logo */
+	background: linear-gradient(var(--dope) , var(--no-dope));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
 /* Axis and tick lines */
 .domain, .tick line {
 	stroke: gray;
@@ -139,7 +144,7 @@ text.label {
 	stroke: var(--dope);
 }
 .legend text {
-	user-select: none;
+	user-select: none;		/* So the user cannot select the text in the legend */
 }
 
 /* Style the dot tooltip */
@@ -148,11 +153,12 @@ text.label {
 	text-decoration: none;
 }
 #tooltip a:hover, #tooltip a:active  {
-	color: navy;
 	text-decoration: underline;
 }
 
 #tooltip .more-info::after {
+	/* Using fontawesome without putting it in HTML. Some copy/pasted code to make it display */
+	
 	/* Base styling */
 	-moz-osx-font-smoothing: grayscale;
   	-webkit-font-smoothing: antialiased;
@@ -173,6 +179,11 @@ text.label {
 
 	/* Small space between the text and content */
 	padding-left: 5px;
+
+	/* Smaller font and shift the icon up a bit */
+	font-size: smaller;
+	position: relative;
+	bottom: 2px;
 }
 
 /* The footer of the document */
@@ -198,17 +209,18 @@ footer {
 	text-decoration: none;
 	color: var(--dope);
 	font-style: italic;
+
+	/* The letters should move away from each other and change color nicely on hover */
 	transition-property: letter-spacing, color;
 	transition-duration: 0.5s, 1s;
 	transition-delay: 0s, 0s;
 }
 #about-me a:hover {
-	letter-spacing: 1px;
+	letter-spacing: 2px;
 	color: var(--no-dope);
 }
 #about-me a:active {
 	letter-spacing: initial;
-	color: var(--no-dope);
 }
 footer strong {
 	color: #635F5D;
@@ -216,11 +228,14 @@ footer strong {
 
 /** MEDIA QUERIES **/
 @media (max-width: 720px) {
+	/* Essentially remove the freecodecamp icon, stack the footer on top each other
+	and normalizing other things (like removing some margins, centralizing the text, 
+	restoring line height to the way it was)*/
 	header .fab {
 		display: none;
 	}
 	footer {
-		flex-direction: column;
+		flex-direction: column;	/* Stack the hint on top of the about-me */
 	}
 	#about-me, #hint {
 		line-height: initial;
@@ -228,7 +243,7 @@ footer strong {
 		margin: 0.5em;
 	}
 	#hint {
-		order: 1;
+		order: 1;	/* The order should change so about me is the last element that should be */
 		margin-right: 0;
 	}
 	#about-me {
