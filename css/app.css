@@ -240,9 +240,9 @@ footer strong {
 
 /** MEDIA QUERIES **/
 @media (min-width: 720px) {
-	/* Since this is mobile-first approach, show the freecodecamp icon that is normally missing, 
-	show the two elements in the footer in a row direction like it should and they should 
-	order correctly as it is in the HTML */
+	/* Since this is mobile-first responsive web design approach, 
+	show the freecodecamp icon that is normally missing, show the two elements in the footer 
+	in a row direction like it should and they should order correctly as it is in the HTML */
 	header .fab {
 		display: initial;
 	}
