@@ -107,7 +107,7 @@ header .text-wrapper p {
 	font-style: italic;
 	color: #8E8883;
 }
-header i {
+header .fab {
 	font-size: 4em;			/* Freecodecamp's logo should be big */
 	margin-right: 1em;
 	align-self: center;
@@ -116,6 +116,9 @@ header i {
 	background: linear-gradient(var(--dope) , var(--no-dope));
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
+
+	/* Mobile first */
+	display: none;
 }
 
 /* Axis and tick lines */
@@ -189,21 +192,30 @@ text.label {
 /* The footer of the document */
 footer {
 	display: flex;
-	justify-content: space-between;
+	
 	background-color: var(--dark-gray);
 	border: 2px dashed var(--footer-border);
 	font-family: Georgia, serif;
+
+	/* Mobile first */
+	flex-direction: column;	/* Stack the hint on top of the about-me */
 }
 #about-me, #hint {
 	display: inline-block;
-	line-height: 0;
+
+	/* Mobile first */
+	line-height: initial;
+	text-align: center;
+	margin: 0.5em;
 }
 #about-me {
-	margin-left: 2em;
+	order: 2;
+	margin-left: 0;
 	font-size: larger;
 }
 #hint {
-	margin-right: 2em;
+	order: 1;
+	margin-right: 0;
 }
 #about-me a:link, #about-me a:visited {
 	text-decoration: none;
@@ -227,27 +239,28 @@ footer strong {
 }
 
 /** MEDIA QUERIES **/
-@media (max-width: 720px) {
-	/* Essentially remove the freecodecamp icon, stack the footer on top each other
-	and normalizing other things (like removing some margins, centralizing the text, 
-	restoring line height to the way it was)*/
+@media (min-width: 720px) {
+	/* Since this is mobile-first approach, show the freecodecamp icon that is normally missing, 
+	show the two elements in the footer in a row direction like it should and they should 
+	order correctly as it is in the HTML */
 	header .fab {
-		display: none;
+		display: initial;
 	}
 	footer {
-		flex-direction: column;	/* Stack the hint on top of the about-me */
+		flex-direction: initial;	/* Stack the hint on top of the about-me */
+		justify-content: space-between;
 	}
 	#about-me, #hint {
-		line-height: initial;
-		text-align: center;
-		margin: 0.5em;
+		line-height: 0;
+		text-align: initial;
+		margin: 1em;
 	}
 	#hint {
-		order: 1;	/* The order should change so about me is the last element that should be */
-		margin-right: 0;
+		order: initial;	/* The order should change so about me is the last element that should be */
+		margin-right: 2em;
 	}
 	#about-me {
-		order: 2;
-		margin-left: 0;
+		order: initial;
+		margin-left: 2em;
 	}
 }
